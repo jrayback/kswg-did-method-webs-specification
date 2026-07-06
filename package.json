@@ -37,7 +37,7 @@
   ],
   "dependencies": {
     "dotenv": "^17.3.1",
-    "spec-up-t": "^1.6.20"
+    "spec-up-t": "^1.6.21"
   },
   "overrides": {
     "braces": ">=3.0.3",
