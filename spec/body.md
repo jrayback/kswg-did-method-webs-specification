@@ -1012,23 +1012,16 @@ Alternate verification method encodings such as `Ed25519VerificationKey2020`,
 
 This section is normative.
 
-`did:webs` commits to same keys for both authentication and assertion, a
-design facilitated by being built upon KERI. This section defines how the
-dual use of keys for `authentication` and `assertionMethod` is reflected
-normatively in verification relationships. A `did:webs` DID document MAY
-include any of these, or other properties, to express a specific
-verification relationship. Both the `authentication` and `assertionMethod`
-properties are optional though if included MUST follow the rules stated in
-this section. When verification relationships are present in a `did:webs`
-DID document, each committed signing key for a given `did:webs` DID MUST
-show up as both an `authentication` and `assertionMethod` verification
-relationship in the DID document.
+`did:webs` commits the same keys for both authentication and assertion, a
+design facilitated by being built upon KERI. A conforming `did:webs` DID
+document MUST include both the `authentication` and `assertionMethod`
+properties, generated according to the rules below. A `did:webs` DID
+document MAY also include other verification relationship properties.
 
 1. If the value of `kt` == 1 then the following rules MUST be applied:
     1. For each public key in `k` and its corresponding verification method,
-       two verification relationships MUST be generated in the DID document.
-       One verification relationship of type `authentication` and one of type
-       `assertionMethod`.
+       the DID document MUST include that verification method in both
+       `authentication` and `assertionMethod`.
         1. The `authentication` verification relationship SHALL define that
            the DID controller can authenticate using each key.
         1. The `assertionMethod` verification relationship SHALL define that
@@ -1036,9 +1029,8 @@ relationship in the DID document.
 1. If the value of `kt` > 1 or if the value of `kt` is an array containing
    fractionally weighted thresholds then the following rules MUST be applied:
     1. For the verification method of type `ConditionalProof2022` (see section
-       [Thresholds](#thresholds)), two verification relationships MUST be
-       generated in the DID document. One of type `authentication` and one of
-       type `assertionMethod`.
+       [Thresholds](#thresholds)), the DID document MUST include that
+       verification method in both `authentication` and `assertionMethod`.
         1. The `authentication` verification relationship SHALL define that
            the DID controller can authenticate using a combination of
            multiple keys above the threshold.
