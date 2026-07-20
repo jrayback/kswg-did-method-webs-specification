@@ -625,11 +625,8 @@ located in the [[ref: KERI event stream]] of the controller of the
 1. For each key listed in the array value of the `k` field of the KSN, a
    corresponding verification method MUST be generated in the DID document.
 1. The `type` property in the verification method for each public key MUST
-   be determined by the algorithm used to generate the public key.
-1. The verification method types used MUST be registered in the
-   [DID Specification Registries]
-   (<https://www.w3.org/TR/did-extensions-properties/#verification-relationships>)
-   and added to this specification.
+   be determined by the algorithm used to generate the public key, as
+   specified in the following subsections.
 1. The `id` property of the verification method MUST be a relative DID URL
    and use the KERI key [[ref: CESR]] value as the value of the fragment
    component, e.g., `"id": "#<identifier>"`.
@@ -1852,9 +1849,9 @@ seal referred to by the `id` property.
    `/loc/scheme` declare URLs for that agent AID. Implementations obtain
    agent endpoints from Endpoint Role data (e.g. KERI `ends` table) plus
    Location Scheme data (e.g. `locs` table).
-2. The DID document service entry SHALL use `type` `KeriAgent` (or `agent`
-   where registered) and `serviceEndpoint` as an object mapping scheme names
-   to URLs or a single URL, consistent with
+2. The DID document service entry SHALL use `type` `agent` and
+   `serviceEndpoint` as an object mapping scheme names to URLs or a single
+   URL, consistent with
    [KERI Service Endpoints as DID Document Metadata](#keri-service-endpoints-as-did-document-metadata).
 
 Endpoint Role Authorization example (controller designates agent):
@@ -2068,15 +2065,13 @@ did:webs:example.com:Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M?transformKeys=
 
 #### `CesrKey` and `publicKeyCesr`
 
-This specification defines the following extensions to the DID document
-data model in accordance with the [DID Spec Registries](#W3C-DID-REGISTRIES):
+This specification defines the following DID document extensions:
 
-1. Extension verification method `type` `CesrKey` MAY be available in a
-   `did:webs` DID document to express a public key encoded in [[ref: CESR]]
-   format.
-1. Extension verification method property `publicKeyCesr` MAY be available
-   in a `did:webs` DID document to provide a string value whose content is
-   the CESR representation of a public key.
+1. Verification method `type` `CesrKey` MAY be available in a `did:webs` DID
+   document to express a public key encoded in [[ref: CESR]] format.
+1. Verification method property `publicKeyCesr` MAY be available in a
+   `did:webs` DID document to provide a string value whose content is the
+   CESR representation of a public key.
 1. The verification method type `CesrKey` MAY be used as the value of the
    `transformKeys` DID parameter.
 
@@ -3099,7 +3094,7 @@ events.
       },
       {
         "id":"#BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw",
-        "type": "KERIAgent", 
+        "type": "agent", 
         "serviceEndpoint": {
           "tcp": "tcp://bar.example.com:5542",
           "https": "https://bar.example.com" 
