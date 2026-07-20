@@ -30,11 +30,11 @@ surpassing the one HTTPS gives to HTTP.
 ; did:webs DID structure
 webs-did = "did:webs:" host [pct-encoded-colon port] *(":" path) ":" aid
 
-; 'host' as defined in RFC 1035, RFC 1123, and RFC 2181
-host = *( ALPHA / DIGIT / "-" / "." )
-; Simplified representation; actual RFCs have more complex rules for domains
-; and IP addresses. In actual implementations replace with a mature host
-; parsing library.
+; Simplified host character class for illustration only.
+; Normative domain-name rules: RFC 1035, RFC 1123, and RFC 2181.
+; Normative URI host/authority (including IP forms): RFC 3986.
+; Implementations SHOULD use a mature URI/host parsing library.
+host = 1*( ALPHA / DIGIT / "-" / "." )
 
 ; 'pct-encoded-colon' represents a percent-encoded colon
 pct-encoded-colon = "%3A" / "%3a" ; Percent encoding for ':'
@@ -42,8 +42,8 @@ pct-encoded-colon = "%3A" / "%3a" ; Percent encoding for ':'
 ; 'port' number (simplified version)
 port = 1*5(DIGIT)
 
-; 'path' definition
-path = 1*(ALPHA / DIGIT / "-" / "_" / "~" / "." / "/")
+; Path segment between colons (no '/'; path separators in the DID are ':')
+path = 1*(ALPHA / DIGIT / "-" / "_" / "~" / ".")
 
 aid = said
 
@@ -53,9 +53,9 @@ said = said-256 / said-512
 ; Base64URLSafe characters (RFC 4648, excluding padding)
 base64urlsafe = ALPHA / DIGIT / "-" / "_"
 
-; The complete SAID primitive MUST conform to CESR code table [2], CESR spec
-; Section 11.4. The following currently defined digest codes produce 256-bit
-; or 512-bit SAIDs of 44 or 88 characters total.
+; The complete SAID primitive MUST conform to the CESR code tables.
+; The following currently defined digest codes produce 256-bit or
+; 512-bit SAIDs of 44 or 88 characters total.
 
 ; 256-bit SAIDs: 44 characters total (1 char code + 43 Base64URLSafe)
 one-char-code = "E" / "F" / "G" / "H" / "I"
@@ -66,13 +66,18 @@ two-char-code = "0D" / "0E" / "0F" / "0G"
 said-512 = two-char-code 86base64urlsafe
 ```
 
-1. The [[ref: host]] MUST abide by the formal rules describing valid syntax
-   found in [RFC 1035](#RFC1035), [RFC 1123](#RFC1123), and
-   [RFC 2181](#RFC2181).
+1. When the [[ref: host]] is a domain name, it MUST abide by the formal rules
+   describing valid domain name syntax found in [RFC 1035](#RFC1035),
+   [RFC 1123](#RFC1123), and [RFC 2181](#RFC2181).
+1. When interpreting the host as part of a URI authority — including port
+   handling and IP-literal forms — the [[ref: host]] MUST also conform to the
+   `host` production in [RFC 3986](#RFC3986). Implementations SHOULD use a
+   mature URI/host parsing library rather than relying solely on the
+   simplified ABNF `host` rule above.
 1. A port MAY be included and the colon MUST be percent encoded, like `%3a`,
    to prevent a conflict with paths.
 1. Directories and subdirectories MAY optionally be included, delimited by
-   colons rather than slashes.
+   colons rather than slashes. Path segments MUST NOT contain `/`.
 1. The KERI AID is a unique [[ref: identifier]] and MUST be derived from the
    [[ref: inception event]] of a KERI identifier.
 
@@ -3300,6 +3305,8 @@ and python.
 <a id="RFC1123"></a>. IETF, [RFC 1123: Requirements for Internet Hosts - Application and Support](https://datatracker.ietf.org/doc/html/rfc1123).
 
 <a id="RFC2181"></a>. IETF, [RFC 2181: Clarifications to the DNS Specification](https://www.rfc-editor.org/info/rfc2181).
+
+<a id="RFC3986"></a>. IETF, [RFC 3986: Uniform Resource Identifier (URI): Generic Syntax](https://www.rfc-editor.org/info/rfc3986).
 
 #### Trust-over-IP
 
