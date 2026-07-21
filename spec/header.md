@@ -86,7 +86,7 @@ available reputational data and verifiable credentials (VCs).
 As a preview of syntax, see the below sample did:webs DID:
 
 ```text
-did:webs:example.com%3A3000:users:alice:EKYGGh-FtAphGmSZbsuBs_t4qpsjYJ2ZqvMKluq9OxmP
+did:webs:example.com%3a3000:users:alice:EKYGGh-FtAphGmSZbsuBs_t4qpsjYJ2ZqvMKluq9OxmP
 │        │          │       │     │     │
 │        │          │       │     │     └─ AID (KERI identifier)
 │        │          │       │     └─────── Path component

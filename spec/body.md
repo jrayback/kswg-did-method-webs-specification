@@ -111,7 +111,7 @@ for both `did:webs` and `did:web` resolution.
     1. MUST replace `did:webs` with `https://`
     1. MUST replace the "`:`"s in the method-specific identifier with path
        separators, "'/'"s
-    1. MUST convert the optional port percent encoding ("`%3A`") to a colon
+    1. MUST convert the optional port percent encoding (`%3A` or `%3a`) to a colon
        if present.
     1. MUST append "`/did.json`" to the resulting string.
 1. A GET on that URL MUST return the DID document.
@@ -121,7 +121,7 @@ for both `did:webs` and `did:web` resolution.
     2. A GET on that URL MUST return the KERI event stream for the AID in
        the `did:webs` identifier.
     3. The KERI event stream MUST be [[ref: CESR]]-formatted, MUST have the
-       media type of `application/cesr`, and the KERI events must be verifiable
+       media type of `application/cesr`, and the KERI events MUST be verifiable
        using the KERI rules.
 1. The `did:web` version of the DIDs MUST be the same (minus the `s`) and
    point to the same `did.json` file.
@@ -144,7 +144,7 @@ documents and KERI event stream URLs, based on the examples from the
       `https://w3c-ccg.github.io/user/alice/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/did.json`
     * [[ref: KERI event stream]] URL would look like:
       `https://w3c-ccg.github.io/user/alice/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/keri.cesr`
-* `did:webs:example.com%3A3000:user:alice:EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR`
+* `did:webs:example.com%3a3000:user:alice:EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR`
     * The DID document URL would look like:
       `https://example.com:3000/user/alice/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/did.json`
     * [[ref: KERI event stream]] URL would look like:
@@ -1237,6 +1237,12 @@ prefix: the top-level `id` and `controller`, every `verificationMethod`
                 }
             }
         ],
+        "authentication": [
+          "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+        ],
+        "assertionMethod": [
+          "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+        ],
         "service": [],
         "alsoKnownAs": [
             "did:web:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
@@ -1266,6 +1272,12 @@ prefix: the top-level `id` and `controller`, every `verificationMethod`
                   "x": "evT4j6Yw3uHpwsw5NEmSR8-4x3S-BA-s6Thjd51oeOs"
               }
           }
+      ],
+      "authentication": [
+        "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+      ],
+      "assertionMethod": [
+        "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
       ],
       "service": [],
       "alsoKnownAs": [
@@ -1338,6 +1350,12 @@ reciprocal entry in `alsoKnownAs`.
               }
           }
       ],
+      "authentication": [
+        "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+      ],
+      "assertionMethod": [
+        "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+      ],
       "service": [],
       "alsoKnownAs": [
           "did:webs:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
@@ -1368,6 +1386,12 @@ reciprocal entry in `alsoKnownAs`.
                     "x": "evT4j6Yw3uHpwsw5NEmSR8-4x3S-BA-s6Thjd51oeOs"
                 }
             }
+        ],
+        "authentication": [
+          "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+        ],
+        "assertionMethod": [
+          "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
         ],
         "service": [],
         "alsoKnownAs": [
@@ -1569,6 +1593,12 @@ Resulting DID document:
         "x": "mDsBBRIoASj4-SCPi1UXsvT4Wom3RAXEWHnzvwBxm_o"
       }
     }
+  ],
+  "authentication": [
+    "#DJg7AQUSKAEo-Pkgj4tVF7L0-FqJt0QFxFh5878AcZv6"
+  ],
+  "assertionMethod": [
+    "#DJg7AQUSKAEo-Pkgj4tVF7L0-FqJt0QFxFh5878AcZv6"
   ],
   "service": [
     {
@@ -1930,7 +1960,7 @@ showing five designated aliases:
 {
   "v": "ACDC10JSON000574_",
   "d": "EA7VoZA6B9hmhmJAuWUU4lNxRBIQ3sv6JZXGeLnJCRGZ",
-  "i": "EEOqE46OOSl1k1JO3ggQTGuQR3nnWE8bYjOPnJ53m8CP",
+  "i": "ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
   "ri": "EBXOxFQrvOxBPb7DiRaTlZNLvX5RbL5cO05MdA35Z0vl",
   "s": "EN6Oh5XSD5_q2Hgu-aqpdfbVepdpYpFlgz6zvJL5b_r5",
   "a": {
@@ -1968,6 +1998,7 @@ attestation above contains:
 {
     "didDocument": {
         "id": "did:webs:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
+        "controller": "did:webs:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
         "verificationMethod": [
             {
                 "id": "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr",
@@ -1980,6 +2011,12 @@ attestation above contains:
                     "x": "evT4j6Yw3uHpwsw5NEmSR8-4x3S-BA-s6Thjd51oeOs"
                 }
             }
+        ],
+        "authentication": [
+          "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+        ],
+        "assertionMethod": [
+          "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
         ],
         "service": [],
         "alsoKnownAs": [
@@ -2247,6 +2284,7 @@ Example:
 {
     "didDocument": {
         "id": "did:webs:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
+        "controller": "did:webs:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
         "verificationMethod": [
             {
                 "id": "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr",
@@ -2259,6 +2297,12 @@ Example:
                     "x": "evT4j6Yw3uHpwsw5NEmSR8-4x3S-BA-s6Thjd51oeOs"
                 }
             }
+        ],
+        "authentication": [
+          "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+        ],
+        "assertionMethod": [
+          "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
         ],
         "service": [],
         "alsoKnownAs": [
